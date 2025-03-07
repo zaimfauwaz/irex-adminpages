@@ -19,7 +19,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('dist/assets/css/sb-admin-2.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/assets/css/sb-crm-2.css') }}" rel="stylesheet">
 
 </head>
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Authentication\AdminCredentials;
-use App\Http\Controllers\Authentication\AuthController;
 use App\Http\Controllers\Logs\LogReaderController;
+use App\Http\Controllers\UserController;
 
 class Controller
 {
@@ -20,4 +20,5 @@ class Controller
         }
         abort(403,'Incorrect privileges');
     }
+
 }

@@ -4,10 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Logs\LogEmployeeController;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        if (!Auth::check() || !Auth::user()->is_admin) {
+            abort(403, 'Unauthorized access');
+        }
+    }
 
     public function index()
     {
@@ -41,6 +51,7 @@ class UserController extends Controller
             'is_active' => $request->is_active,
             'is_admin' => $request->is_admin,
         ]);
+        app(LogEmployeeController::class)->logCreateEmployee($request->name);
         return redirect()->route('adminemp.index')->with('success', 'Employee added successfully.');
     }
 
@@ -80,12 +91,14 @@ class UserController extends Controller
             'is_admin' => $request->is_admin,
         ]);
 
+        app(LogEmployeeController::class)->logModifyEmployee($request->name);
         return redirect()->route('adminemp.index')->with('success', 'Employee updated successfully.');
     }
 
 
     public function destroy(User $adminemp)
     {
+        app(LogEmployeeController::class)->logDeleteEmployee($adminemp->name);
         $adminemp->delete();
         return redirect()->route('adminemp.index');
     }
