@@ -1,0 +1,12 @@
+th {
+    position: relative;
+}
+th .resizer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    cursor: col-resize;
+    background: rgba(0, 0, 0, 0.2);
+}

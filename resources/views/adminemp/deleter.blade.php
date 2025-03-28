@@ -1,3 +1,4 @@
+
 @foreach ($employees as $emp)
     <div class="modal fade" id="deleteModal-{{ $emp->employee_id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
          aria-hidden="true">

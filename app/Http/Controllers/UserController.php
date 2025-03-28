@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Logs\LogEmployeeController;
 
 class UserController extends Controller
@@ -77,7 +76,6 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $adminemp->employee_id . ',employee_id',
             'username' => 'required|string|max:255|unique:users,username,' . $adminemp->employee_id . ',employee_id',
-            'password' => 'required|string|min:8|confirmed',
            'is_active' =>  'required|boolean',
            'is_admin' =>  'required|boolean',
         ]);
@@ -86,9 +84,29 @@ class UserController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
             'is_active' => $request->is_active,
             'is_admin' => $request->is_admin,
+        ]);
+
+        app(LogEmployeeController::class)->logModifyEmployee($request->name);
+        return redirect()->route('adminemp.index')->with('success', 'Employee updated successfully.');
+    }
+
+    public function editpassword(Request $request, User $adminemp)
+    {
+        return view ('adminemp.editpassword', compact('adminemp'));
+    }
+
+    public function updatepassword(Request $request, $employee_id)
+    {
+        $adminemp = User::where('employee_id', $employee_id)->firstOrFail();
+
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $adminemp->update([
+            'password' => Hash::make($request->password),
         ]);
 
         app(LogEmployeeController::class)->logModifyEmployee($request->name);

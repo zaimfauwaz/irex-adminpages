@@ -32,6 +32,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Admin-based Routes
 Route::get('/adminlogs', [Controller::class, 'viewAdminLogs'])->middleware('auth')->name('adminlogs');
 Route::resource('/adminemp',UserController::class)->middleware('auth');
+Route::get('/adminemp/{adminemp}/password', [UserController::class, 'editpassword'])->middleware('auth')->name('adminemp.editpassword');
+Route::put('/adminemp/{adminemp}/password', [UserController::class, 'updatePassword'])->middleware('auth')->name('adminemp.updatepassword');
+Route::resource('/product', ProductController::class)->middleware('auth');
+Route::resource('/faqlist', FaqController::class)->middleware('auth');
 
 
 // Temporary Only

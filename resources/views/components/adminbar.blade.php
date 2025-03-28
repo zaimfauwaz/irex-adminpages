@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Request;
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item @if (Request::is('admindash')) active @endif">
-    <a class="nav-link" href="admindash">
+    <a class="nav-link" href="{{ url('admindash')}}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
 </li>
@@ -33,17 +33,33 @@ use Illuminate\Support\Facades\Request;
 
 <!-- Nav Item - Employee -->
 <li class="nav-item @if (Request::is('adminemp')) active @endif">
-    <a class="nav-link" href="adminemp">
+    <a class="nav-link" href="{{ url('adminemp')}}">
         <i class="fas fa-fw fa-users"></i>
         <span>Employee Manager</span>
     </a>
 </li>
 
+<!-- Divider -->
+<hr class="sidebar-divider">
+
+<!-- Heading -->
+<div class="sidebar-heading">
+    Knowledge Base
+</div>
+
 <!-- Nav Item - Knowledge Base -->
-<li class="nav-item @if (Request::is('adminkbm')) active @endif">
-    <a class="nav-link" href="adminkbm">
+<li class="nav-item @if (Request::is('product')) active @endif">
+    <a class="nav-link" href="{{ url('product')}}">
         <i class="fas fa-fw fa-database"></i>
-        <span>Database Manager</span>
+        <span>Product Manager</span>
+    </a>
+</li>
+
+<!-- Nav Item - Knowledge Base -->
+<li class="nav-item @if (Request::is('faqlist')) active @endif">
+    <a class="nav-link" href="{{ url('faqlist')}}">
+        <i class="fas fa-fw fa-question-circle"></i>
+        <span>FAQ List Manager</span>
     </a>
 </li>
 
@@ -57,7 +73,7 @@ use Illuminate\Support\Facades\Request;
 
 <!-- Nav Item - Logs -->
 <li class="nav-item @if (Request::is('adminlogs')) active @endif">
-    <a class="nav-link" href="adminlogs">
+    <a class="nav-link" href="{{ url('adminlogs')}}">
         <i class="fas fa-fw fa-history"></i>
         <span>Administrative Logs</span></a>
 </li>
