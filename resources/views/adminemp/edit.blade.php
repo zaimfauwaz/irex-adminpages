@@ -15,7 +15,7 @@
 
         <div class="mb-3">
             <label class="form-label">Username</label>
-            <input type="text" name="username" class="form-control" value="{{ $adminemp->username }}" required>
+            <input type="text" name="username" class="form-control" value="{{ $adminemp->username }}" required readonly>
         </div>
         @error('username')
         <div class="alert alert-danger text-red-100">{{ $message }}</div>

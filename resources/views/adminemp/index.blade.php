@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,9 +93,15 @@
                                                             <a href="{{ route('adminemp.editpassword', $emp->employee_id) }}"
                                                                class="btn btn-sm btn-warning mx-2">
                                                                 <i class="bi bi-key"></i> Change Password</a>
+
+                                                            @php
+                                                                $loggedInUsername = Auth::user()->username;
+                                                            @endphp
+
                                                             <button type="button" class="btn btn-sm btn-danger"
                                                                     data-bs-toggle="modal"
-                                                                    data-bs-target="#deleteModal-{{ $emp->employee_id }}">
+                                                                    data-bs-target="#deleteModal-{{ $emp->employee_id }}"
+                                                                    @if($loggedInUsername == $emp->username) disabled @endif>
                                                                 <i class="bi bi-trash"></i> Delete
                                                             </button>
                                                         </div>
