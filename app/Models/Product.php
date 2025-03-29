@@ -17,7 +17,7 @@ class Product extends Model
 
     protected $casts = [
         'RSkuKey' => 'string',
-        'RSkuAttributes' => 'json',
+        'RSkuAttributes' => 'array',
         'RSkuTags' => 'array',
         'RSkuPrice' => 'float',
         'RSkuMoq' => 'integer',

@@ -61,6 +61,15 @@
             <input type="number" min="0" name="RQoh" class="form-control" required>
         </div>
 
+        <hr class="table-group-divider">
+        <div class="mb-3">
+            <label class="form-label"><strong>Additional Attributes (Optional)</strong></label>
+            <div>If you set duplicated attributes (key) with different values, the data will be mapped into an array (for the ones having the same custom attribute).</div>
+            @include('components.keyvalue')
+        </div>
+
+        <hr class="table-group-divider">
+        <div>Note that tags are automatically generated from your dataset. Powered by OpenAI API.</div>
         <button type="submit" class="btn btn-primary">Add Product</button>
         <a href="{{ route('product.index') }}" class="btn btn-secondary">Cancel</a>
     </form>

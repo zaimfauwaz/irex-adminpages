@@ -53,9 +53,30 @@ class ProductController extends Controller
             'RSkuPrice'      => 'numeric|min:0',  // DOUBLE
             'RQoh'           => 'integer|min:0',  // INT = 0 (Assumed default)
             'RSkuType'       => 'string|max:63',  // VARCHAR(63)
-//            'RSkuAttributes' => 'json',           // JSON
-//            'RSkuTags'       => 'json',           // JSON
+
+            // For custom attributes only
+            // Key - validation must be strict
+            'custom_attributes.key.*' => [
+                'required',
+                'string',
+                'max:63',
+                'regex:/^(?![0-9])[\w]+$/',
+                'not_regex:/\s/',
+                'not_regex:/[^A-Za-z0-9_]/',
+            ],
+            'custom_attributes.value.*' => [
+                'required',
+                'string',
+                'max:255',
+                'not_regex:/[\x00-\x1F\x7F]/',
+                'not_regex:/["\\\\]/'
+            ]
         ]);
+
+        $keys = $request->input('custom_attributes.key');
+        $values = $request->input('custom_attributes.value');
+
+        $attributes = $this->getCustomAttributes($keys, $values);
 
         Product::create([
             'RSkuKey'=> $request->RSkuKey,
@@ -71,8 +92,7 @@ class ProductController extends Controller
             'RSkuPrice'=>$request->RSkuPrice,
             'RQoh'=>$request->RQoh,
             'RSkuType'=>$request->RSkuType,
-//            'RSkuAttributes'=>$request->RSkuAttributes
-//            'RSKuTags'=>$request->RSkuTags
+            'RSkuAttributes'=>$attributes,
         ]);
         return redirect()->route('product.index')->with('success', 'Product added successfully.');
     }
@@ -114,7 +134,29 @@ class ProductController extends Controller
             'RSkuPrice'      => 'numeric|min:0',
             'RQoh'           => 'integer|min:0',
             'RSkuType'       => 'string|max:63',
+
+            // For custom attributes only
+            // Key - validation must be strict
+            'custom_attributes.key.*' => [
+                'required',
+                'string',
+                'max:63',
+                'regex:/^(?![0-9])[\w]+$/',
+                'not_regex:/\s/',
+                'not_regex:/[^A-Za-z0-9_]/',
+            ],
+            'custom_attributes.value.*' => [
+                'required',
+                'string',
+                'max:255',
+                'not_regex:/[\x00-\x1F\x7F]/',
+                'not_regex:/["\\\\]/'
+            ]
         ]);
+
+        $keys = $request->input('custom_attributes.key');
+        $values = $request->input('custom_attributes.value');
+        $attributes = $this->getCustomAttributes($keys, $values);
 
         $product->update([
             'RSkuNo'=> $request->RSkuNo,
@@ -129,6 +171,7 @@ class ProductController extends Controller
             'RSkuPrice'=>$request->RSkuPrice,
             'RQoh'=>$request->RQoh,
             'RSkuType'=>$request->RSkuType,
+            'RSkuAttributes'=>$attributes,
         ]);
 
         return redirect()->route('product.index')->with('success', 'Product modified successfully.');
@@ -141,5 +184,22 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('product.index');
+    }
+
+    private function getCustomAttributes($keys, $values):array{
+        $attributes = [];
+
+        // Duplication checks - if the custom attributes are set duplicate with different values, these values will be merged into an array (under one custom attribute family).
+        foreach ($keys as $index=>$key) {
+            if (!isset($attributes[$key])) {
+                $attributes[$key] = $values[$index];
+            } else {
+                if (!is_array($attributes[$key])) {
+                    $attributes[$key] = [$attributes[$key]];
+                }
+                $attributes[$key][] = $values[$index];
+            }
+        }
+        return $attributes;
     }
 }

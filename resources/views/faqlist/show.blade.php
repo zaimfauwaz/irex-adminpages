@@ -22,13 +22,13 @@
             $tags = $faqlist->faq_tags;
         @endphp
         <p><strong>Tags:</strong>
-            @if(!empty($tags))
-                @foreach($tags as $tag)
-                    <span class="badge bg-info text-white">{{ $tag }}</span>
-                @endforeach
-            @else
-                <p>No tags available.</p>
-            @endif
+        @empty($tags)
+            <p>No tags available.</p>
+        @else
+            @foreach($tags as $tag)
+                <span class="badge bg-info text-white">{{ $tag }}</span>
+            @endforeach
+        @endempty
         </p>
     </div>
     <div class="d-flex justify-content-end">

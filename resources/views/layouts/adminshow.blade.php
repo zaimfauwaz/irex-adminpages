@@ -22,6 +22,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('dist/assets/css/sb-admin-2.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/assets/css/tablestyle.css') }}" rel="stylesheet">
 
 </head>
 
@@ -101,10 +102,10 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('dist/assets/js/sb-admin-2.js') }}"></script>
+    <script src="{{asset('dist/assets/js/tableslide.js')}}"></script>
 
     <!-- Page level plugins -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 
     </body>
 

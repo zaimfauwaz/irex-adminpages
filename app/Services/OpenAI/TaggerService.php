@@ -30,7 +30,6 @@ class TaggerService
     {
         $attributes = is_string($product_attributes) ? json_decode($product_attributes, true) : $product_attributes;
         $attributes = is_array($attributes) ? $attributes : [];
-        Log::info('Product Attributes:', [$attributes]);
 
         $promptParts = [
             "Name: $product_name",
