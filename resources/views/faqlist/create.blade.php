@@ -37,6 +37,7 @@
             </select>
         </div>
 
+        <div>Note that tags are automatically generated from your dataset. Powered by OpenAI API.</div>
         <button type="submit" class="btn btn-primary">Add FAQ</button>
         <a href="{{ route('faqlist.index') }}" class="btn btn-secondary">Cancel</a>
     </form>

@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\FaqList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\OpenAI\TaggerService;
 
 class FaqController extends Controller
 {
+
+    protected $taggerService;
     /**
      * Display a listing of the resource.
      */
 
     public function __construct()
     {
+        $this->taggerService = new TaggerService();
         if (!Auth::check() || !Auth::user()->is_admin) {
             abort(403, 'Unauthorized access');
         }
@@ -43,7 +47,6 @@ class FaqController extends Controller
             'answer' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'status' => 'required|boolean',
-//            'tags' => 'json',
         ]);
 
         $faqlist = FaqList::create([
@@ -51,9 +54,8 @@ class FaqController extends Controller
             'faq_answer' => $request->answer,
             'faq_category' => $request->category,
             'faq_status' => $request->status,
-//            'faq_tags' => $request->tags,
         ]);
-        return redirect()->route('faq.index')->with('success', 'Faq Information created successfully.');
+        return redirect()->route('faqlist.index')->with('success', 'Faq Information created successfully.');
     }
 
     /**
@@ -68,7 +70,7 @@ class FaqController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, FaqList $faqlist)
+    public function edit(FaqList $faqlist)
     {
         return view('faqlist.edit', compact('faqlist'));
     }
@@ -85,7 +87,6 @@ class FaqController extends Controller
             'answer' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'status' => 'required|boolean',
-//            'tags' => 'json',
         ]);
 
         $faq->update([
@@ -93,7 +94,6 @@ class FaqController extends Controller
             'faq_answer' => $request->answer,
             'faq_category' => $request->category,
             'faq_status' => $request->status,
-//            'faq_tags' => $request->tags,
         ]);
 
         return redirect()->route('faqlist.index')->with('success', 'Faq Information modified successfully.');
@@ -107,4 +107,6 @@ class FaqController extends Controller
         $faqlist->delete();
         return redirect()->route('faqlist.index');
     }
+
+
 }

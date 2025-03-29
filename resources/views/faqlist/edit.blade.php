@@ -39,6 +39,21 @@
             </select>
         </div>
 
+        <div class="mb-3">
+            <label class="form-label">Generated Tags:</label>
+            @php
+                $tags = $faqlist->faq_tags;
+            @endphp
+            @if(!empty($tags))
+                @foreach($tags as $tag)
+                    <span class="badge bg-info text-white">{{ $tag }}</span>
+                @endforeach
+            @else
+                <p>No tags available.</p>
+            @endif
+        </div>
+
+        <div>Note that tags are automatically generated from your dataset. Powered by OpenAI API.</div>
         <button type="submit" class="btn btn-primary">Modify FAQ</button>
         <a href="{{ route('faqlist.index') }}" class="btn btn-secondary">Cancel</a>
 

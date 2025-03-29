@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Services\OpenAI\TaggerService;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -18,18 +18,26 @@ class Product extends Model
     protected $casts = [
         'RSkuKey' => 'string',
         'RSkuAttributes' => 'json',
-        'RSkuTags' => 'json',
+        'RSkuTags' => 'array',
         'RSkuPrice' => 'float',
         'RSkuMoq' => 'integer',
         'RQoh' => 'integer',
     ];
 
-    protected static function boot()
+    protected static function booted()
     {
         parent::boot();
 
-        static::creating(function ($model){
-            $model->RSkuKey = self::generateRSkuKey();
+        static::creating(function ($product){
+            $product->RSkuKey = self::generateRSkuKey();
+
+            $product->RSkuTags = self::generateTags($product->RSkuName1, $product->RSkuBrnName, $product->RSkuType, $product->RUom, $product->RSkuAttributes);
+        });
+
+        static::updating(function ($product){
+            if ($product->isDirty('RSkuName1') || $product->isDirty('RSkuBrnName') || $product->isDirty('RSkuType') || $product->isDirty('RUom') || $product->isDirty('RSkuAttributes')){
+                $product->RSkuTags = self::generateTags($product->RSkuName1, $product->RSkuBrnName, $product->RSkuType, $product->RUom, $product->RSkuAttributes);
+            }
         });
     }
 
@@ -50,5 +58,14 @@ class Product extends Model
         }
 
         return $result;
+    }
+
+    private static function generateTags($productname, $productbrand, $producttype, $productuom = null, $productattributes = null){
+        $tagger = app(TaggerService::class);
+        $tags = $tagger->generateProductTags($productname, $productbrand, $producttype, $productuom, $productattributes);
+
+        return array_map(function ($tag) {
+            return str_replace('\\', '', $tag);
+        }, $tags ?? []);
     }
 }

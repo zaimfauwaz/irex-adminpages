@@ -37,10 +37,4 @@ Route::put('/adminemp/{adminemp}/password', [UserController::class, 'updatePassw
 Route::resource('/product', ProductController::class)->middleware('auth');
 Route::resource('/faqlist', FaqController::class)->middleware('auth');
 
-
-// Temporary Only
-
-Route::get('/password-generator', [PasswordGeneratorController::class, 'showForm'])->name('password.generator');
-Route::post('/generate-password', [PasswordGeneratorController::class, 'generatePassword'])->name('generate.password');
-
-
+//Service-based Routes (Third Party Connections)

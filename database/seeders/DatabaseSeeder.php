@@ -113,24 +113,6 @@ class DatabaseSeeder extends Seeder
             ]
         ]);
 
-        Product::create([
-            'RSkuNo' => 'ST 188 33-5N',
-            'RUom' => 'PKT',
-            'RSkuName1' => 'A5 SPIRAL NOTEBOOK 80GSM X5PC',
-            'RSkuName2' => '188 33-5N',
-            'RSkuMoq' => 15,
-            'RSkuPr' => 'OXFORD',
-            'RSkuPrName' => 'OXFORD',
-            'RSkuBrn' => 'OXFORD',
-            'RSkuBrnName' => 'OXFORD',
-            'RSkuPrice' => 250,
-            'RQoh' => 60,
-            'RSkuType' => 'Stationaries',
-            'RSkuAttributes' => [
-                'RSkuPaperType' => '80GSM',
-                'RSkuAdditionalItems' => ['Sticky Notes', 'Bookmark'],
-            ]
-        ]);
     }
 
     public function runExampleFAQ(): void{
