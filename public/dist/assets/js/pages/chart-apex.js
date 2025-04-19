@@ -172,7 +172,7 @@ setTimeout(function () {
       colors: ['#52c41a', '#faad14', '#ff4d4f'],
       series: [
         {
-          name: 'Session Duration',
+          name: 'ChatSession Duration',
           data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10]
         },
         {

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Request;
 
 <!-- Nav Item - Dashboard -->
 <li class="nav-item @if (Request::is('crmdash')) active @endif">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="{{url('crmdash')}}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
 </li>
@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Request;
 
 <!-- Nav Item - Messages -->
 <li class="nav-item @if (Request::is('messages')) active @endif">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="{{url('messages')}}">
         <i class="fas fa-fw fa-comments"></i>
         <span>Messages</span>
     </a>
@@ -49,7 +49,7 @@ use Illuminate\Support\Facades\Request;
 
 <!-- Nav Item - Filters -->
 <li class="nav-item @if (Request::is('filters')) active @endif">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="{{url('filters')}}">
         <i class="fas fa-fw fa-filter"></i>
         <span>Filters</span></a>
 </li>

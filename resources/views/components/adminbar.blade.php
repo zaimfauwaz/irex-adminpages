@@ -86,6 +86,13 @@ use Illuminate\Support\Facades\Request;
     Others
 </div>
 
+<!-- Nav Item - Logs -->
+<li class="nav-item @if (Request::is('playground')) active @endif">
+    <a class="nav-link" href="{{ url('playground')}}">
+        <i class="fas fa-fw fa-rocket"></i>
+        <span>Playground</span></a>
+</li>
+
 <!-- Nav Item - Logout -->
 <li class="nav-item">
     <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">

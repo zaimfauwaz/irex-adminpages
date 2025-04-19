@@ -1,0 +1,16 @@
+use MeiliSearch\Client;
+
+
+$client = new Client(env('MEILISEARCH_HOST'), env('MEILISEARCH_KEY'));
+$index = $client->index('products');
+
+
+$message = "Product which sku_moq is 1";
+
+
+$results = $index->search($message, [
+    'matchingStrategy' => 'frequency',
+]);
+
+
+dd($results->getHits());

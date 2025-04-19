@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\FaqList;
-use App\Models\User;
-use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

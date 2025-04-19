@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
@@ -23,7 +22,7 @@ class ProductSeeder extends Seeder
             'RSkuPrName'=> 'STAEDTLE',
             'RSkuBrn'=> 'STAEDTLER',
             'RSkuBrnName'=> 'STAEDTLER',
-            'RSkuPrice'=> 50,
+            'RSkuPrice'=> 30,
             'RQoh'=> 0,
             'RSkuType'=> 'Stationaries',
             'RSkuAttributes'=> [
@@ -42,7 +41,7 @@ class ProductSeeder extends Seeder
             'RSkuPrName' => 'PILOT',
             'RSkuBrn' => 'PILOT',
             'RSkuBrnName' => 'PILOT',
-            'RSkuPrice' => 150,
+            'RSkuPrice' => 15,
             'RQoh' => 50,
             'RSkuType' => 'Stationaries',
             'RSkuAttributes' => [
@@ -61,7 +60,7 @@ class ProductSeeder extends Seeder
             'RSkuPrName' => 'UNI-BALL',
             'RSkuBrn' => 'UNI-BALL',
             'RSkuBrnName' => 'UNI-BALL',
-            'RSkuPrice' => 120,
+            'RSkuPrice' => 20,
             'RQoh' => 12,
             'RSkuType' => 'Stationaries',
             'RSkuAttributes' => [

@@ -4,9 +4,12 @@ namespace App\Models;
 
 use App\Services\OpenAI\TaggerService;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class FaqList extends Model
 {
+    use Searchable;
+
     protected $table = 'faqlists';
     protected $primaryKey = 'faq_id';
 
@@ -46,5 +49,16 @@ class FaqList extends Model
         return array_map(function ($tag) {
             return str_replace('\\', '', $tag);
         }, $tags ?? []);
+    }
+
+    // Used for Meilisearch indexing
+    public function toSearchableArray(){
+        return [
+            'faq_question' => $this->faq_question,
+            'faq_answer' => $this->faq_answer,
+            'faq_category' => $this->faq_category,
+            'faq_status' => $this->faq_status,
+            'faq_tags' => $this->faq_tags ?? null,
+        ];
     }
 }

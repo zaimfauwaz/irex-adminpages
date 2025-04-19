@@ -4,9 +4,9 @@
 @section('content')
     <div class="d-flex justify-content-end mb-3">
 {{--        {{ route('product.masscreate') }}--}}
-        <a href="" class="btn btn-sm btn-info mx-2">
-            <i class="bi bi-stars"></i> Upload Dataset
-        </a>
+{{--        <a href="" class="btn btn-sm btn-info mx-2">--}}
+{{--            <i class="bi bi-stars"></i> Upload Dataset--}}
+{{--        </a>--}}
         <a href="{{ route('product.create') }}" class="btn btn-sm btn-success">
             <i class="bi bi-plus"></i> New Product
         </a>

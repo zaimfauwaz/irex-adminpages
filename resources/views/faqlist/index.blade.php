@@ -1,12 +1,13 @@
 @extends('layouts.kbtables')
 @section('title', 'FAQ Manager | iREX Admin')
 
+
 @section('content')
     <div class="d-flex justify-content-end mb-3">
 {{--        {{ route('faqlist.masscreate') }}--}}
-        <a href="" class="btn btn-sm btn-info mx-2">
-            <i class="bi bi-stars"></i> Upload Dataset
-        </a>
+{{--        <a href="{{ route('faqlist.uploadform') }}" class="btn btn-sm btn-info mx-2">--}}
+{{--            <i class="bi bi-stars"></i> Upload Dataset--}}
+{{--        </a>--}}
         <a href="{{ route('faqlist.create') }}" class="btn btn-sm btn-success">
             <i class="bi bi-plus"></i> New FAQ List
         </a>

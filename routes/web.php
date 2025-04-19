@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Authentication\AuthController;
-use App\Http\Controllers\Logs\LogReaderController;
+use App\Http\Controllers\Chatbots\ChatbotController;
+use App\Http\Controllers\Chatbots\MessageController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,5 +36,9 @@ Route::get('/adminemp/{adminemp}/password', [UserController::class, 'editpasswor
 Route::put('/adminemp/{adminemp}/password', [UserController::class, 'updatePassword'])->middleware('auth')->name('adminemp.updatepassword');
 Route::resource('/product', ProductController::class)->middleware('auth');
 Route::resource('/faqlist', FaqController::class)->middleware('auth');
+Route::resource('/messages', MessageController::class)->middleware('auth');
+Route::resource('/playground', PlaygroundController::class)->middleware('auth');
+Route::post('/playground', [PlaygroundController::class, 'store'])->middleware('auth')->name('playground.store');
 
 //Service-based Routes (Third Party Connections)
+Route::get('/test-whatsapp',[WhatsAppController::class,'sendWhatsAppMessage']);

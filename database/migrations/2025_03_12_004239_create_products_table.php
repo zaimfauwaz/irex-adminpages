@@ -27,6 +27,9 @@ return new class extends Migration
             $table->string('RSkuType', 63);
             $table->json('RSkuAttributes')->nullable();
             $table->json('RSkuTags')->nullable();
+            $table->string('RSkuImage1')->nullable();
+            $table->string('RSkuImage2')->nullable();
+            $table->string('RSkulink')->nullable();
             $table->timestamps();
         });
     }

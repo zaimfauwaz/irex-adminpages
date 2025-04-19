@@ -4,15 +4,18 @@ namespace App\Models;
 
 use App\Services\OpenAI\TaggerService;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
+    use Searchable;
+
     protected $table = 'products';
     protected $primaryKey = 'RSkuKey';
 
 
     protected $fillable = [
-        'RSkuKey', 'RSkuNo', 'RUom', 'RSkuName1', 'RSkuName2', 'RSkuMoq', 'RSkuPr', 'RSkuPrName', 'RSkuBrn', 'RSkuBrnName',  'RSkuPrice', 'RQoh', 'RSkuType', 'RSkuAttributes', 'RSkuTags'
+        'RSkuKey', 'RSkuNo', 'RUom', 'RSkuName1', 'RSkuName2', 'RSkuMoq', 'RSkuPr', 'RSkuPrName', 'RSkuBrn', 'RSkuBrnName',  'RSkuPrice', 'RQoh', 'RSkuType', 'RSkuAttributes', 'RSkuTags', 'RSkuImage1', 'RSkuImage2', 'RSkulink'
     ];
 
     protected $casts = [
@@ -30,7 +33,9 @@ class Product extends Model
 
         static::creating(function ($product){
             $product->RSkuKey = self::generateRSkuKey();
-
+            $product->RSkuImage1 = env('SKU_DOMAIN').env('SKU_ARGS_2').self::generateRSkuKey()."-SKU1.jpg";
+            $product->RSkuImage2 = env('SKU_DOMAIN').env('SKU_ARGS_2').self::generateRSkuKey()."-SKU2.jpg";
+            $product->RSkulink = env('SKU_DOMAIN').env('SKU_ARGS_1').self::generateRSkuKey();
             $product->RSkuTags = self::generateTags($product->RSkuName1, $product->RSkuBrnName, $product->RSkuType, $product->RUom, $product->RSkuAttributes);
         });
 
@@ -67,5 +72,25 @@ class Product extends Model
         return array_map(function ($tag) {
             return str_replace('\\', '', $tag);
         }, $tags ?? []);
+    }
+
+    public function toSearchableArray(){
+        return [
+            'RSkuNo' => $this->RSkuNo,
+            'RSkuKey' => $this->RSkuKey,
+            'RSkuName1' => $this->RSkuName1,
+            'RSkuPrName' => $this->RSkuPrName,
+            'RSkuBrnName' => $this->RSkuBrnName,
+            'RUom' => $this->RUom,
+            'RSkuMoq' => $this->RSkuMoq,
+            'RSkuPrice' => $this->RSkuPrice,
+            'RQoh' => $this->RQoh,
+            'RSkuType' => $this->RSkuType,
+            'RSkuAttributes' => $this->RSkuAttributes ?? null,
+            'RSkuTags' => $this->RSkuTags ?? null,
+            'RSkuImage1' => $this->RSkuImage1 ?? null,
+            'RSkuImage2' => $this->RSkuImage2 ?? null,
+            'RSkulink' => $this->RSkulink ?? null,
+        ];
     }
 }

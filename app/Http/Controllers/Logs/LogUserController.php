@@ -39,7 +39,7 @@ class LogUserController extends Controller
         $user = Auth::user();
         DB::table('logs')->insert([
             'employee_id' => $user->employee_id,
-            'action' => 'Logout Session',
+            'action' => 'Logout ChatSession',
             'description' => 'User logged out successfully',
             'writer' => class_basename(__CLASS__),
             'method' => $request->method(),
